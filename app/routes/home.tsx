@@ -48,6 +48,7 @@ export default function Home() {
     },
   ];
   const onPurchase = (product) => {
+
     alert(`You clicked on ${product.title} which cost $${product.price}`);
   }
   return <ProductList >

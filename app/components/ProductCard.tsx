@@ -11,8 +11,8 @@ export const ProductCard = ({ product, background = "olive", onPurchase, ...rest
       />
       <p>Specifications</p>
       <ul>
-        {product.spec.map((item) => (
-          <li>{item}</li>
+        {product.spec.map((item, index) => (
+          <li key={index}>{item}</li>
         ))}
       </ul>
       <button onClick={() => onPurchase(product)} className="bg-white text-black p-4 rounded-2xl">

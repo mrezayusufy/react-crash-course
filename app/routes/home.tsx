@@ -46,7 +46,7 @@ export default function Home() {
   }
   return <ProductList>
     {products.map((item) => (
-      <ProductCard product={item} onPurchase={onPurchase} />
+      <ProductCard key={item.title} product={item} onPurchase={onPurchase} />
     ))}
   </ProductList>;
 }

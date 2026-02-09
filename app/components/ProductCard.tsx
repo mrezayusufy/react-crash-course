@@ -15,9 +15,26 @@ export const ProductCard = ({ product, background = "olive", onPurchase, ...rest
           <li key={index}>{item}</li>
         ))}
       </ul>
-      <button onClick={() => onPurchase(product)} className="bg-white text-black p-4 rounded-2xl">
-        Buy (From {product.price})
-      </button>
+      <Status stockCount={product.stockCount} />
+      {product.stockCount > 0 && (
+        <button onClick={() => onPurchase(product)} className="bg-white text-black p-4 rounded-2xl">
+          Buy (From ${product.price})
+        </button>
+      )}
     </article>
   );
 };
+
+const Status = ({ stockCount }) => {
+  const notAvailableTemplate = (
+    <p style={{ fontSize: "14px", color: "lightsalmon" }} >Not available</p>
+  );
+
+  const availableTemplate = (
+    <p style={{ fontSize: "14px", color: "lightgreen" }}>
+      {stockCount} items available
+    </p>
+  );
+
+  return stockCount === 0 ? notAvailableTemplate : availableTemplate;
+}

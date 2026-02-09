@@ -18,6 +18,7 @@ export default function Home() {
         "3x or 5x Telephoto camera",
         "Up to 29 hours video playback",
       ],
+      stockCount: 10,
       price: 999,
     },
     {
@@ -28,6 +29,7 @@ export default function Home() {
         "Dust, sweat, and water resistant",
         "Up to 6 hours of listening",
       ],
+      stockCount: 0,
       price: 249,
     },
     {
@@ -38,6 +40,7 @@ export default function Home() {
         "Always-On Retina display",
         "Up to 18 hours normal use",
       ],
+      stockCount: 20,
       price: 399,
     },
   ];

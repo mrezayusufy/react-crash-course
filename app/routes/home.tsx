@@ -20,6 +20,7 @@ export default function Home() {
       ],
       stockCount: 10,
       price: 999,
+      bg: "bg-emerald-600"
     },
     {
       image: "images/airpods.png",
@@ -31,6 +32,7 @@ export default function Home() {
       ],
       stockCount: 0,
       price: 249,
+      bg: "bg-blue-300"
     },
     {
       image: "images/apple-watch.png",
@@ -42,14 +44,15 @@ export default function Home() {
       ],
       stockCount: 20,
       price: 399,
+      bg: "bg-violet-500"
     },
   ];
   const onPurchase = (product) => {
     alert(`You clicked on ${product.title} which cost $${product.price}`);
   }
-  return <ProductList>
+  return <ProductList >
     {products.map((item) => (
-      <ProductCard key={item.title} product={item} onPurchase={onPurchase} />
+      <ProductCard key={item.title} product={item} onPurchase={onPurchase} background={item.bg} />
     ))}
   </ProductList>;
 }

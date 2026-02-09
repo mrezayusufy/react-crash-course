@@ -1,7 +1,9 @@
-export const ProductCard = ({ product, background = "olive", onPurchase, ...rest }) => {
+import { cn } from "~/utils/cn";
+
+export const ProductCard = ({ product, background = "bg-amber-400", onPurchase }) => {
 
   return (
-    <article className="p-4 bg-amber flex max-w-2xs flex-col gap-4 mx-auto border border-gray-400 rounded-2xl ">
+    <article className={cn("p-4 flex max-w-2xs flex-col gap-4 mx-auto border border-gray-400 rounded-2xl", background)} >
       <h2 className="font-bold text-2xl">{product.title}</h2>
       <img
         src={product.image}
@@ -17,7 +19,7 @@ export const ProductCard = ({ product, background = "olive", onPurchase, ...rest
       </ul>
       <Status stockCount={product.stockCount} />
       {product.stockCount > 0 && (
-        <button onClick={() => onPurchase(product)} className="bg-white text-black p-4 rounded-2xl">
+        <button onClick={() => onPurchase(product)} className="bg-white text-gray-900 p-4 rounded-2xl">
           Buy (From ${product.price})
         </button>
       )}

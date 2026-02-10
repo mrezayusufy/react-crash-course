@@ -1,14 +1,18 @@
 import { cn } from "~/utils/cn";
-import React from "react"
-export const ProductCard = ({ product, background = "bg-amber-400", onPurchase }) => {
-  const [stockCount, setStockCount] = React.useState(product.stockCount);
-  const [showMore, setShowMore] = React.useState(false);
+
+import {
+  useState
+} from 'react';
+export const ProductCard = ({ product, background = "bg-amber-400", onPurchase, onFav, isFav }) => {
+  const [stockCount, setStockCount] = useState(product.stockCount);
+  const [showMore, setShowMore] = useState(false);
   const handlePurchase = () => {
     onPurchase(product);
     setStockCount(stockCount - 1);
   }
   return (
-    <article className={cn("p-4 w-64 flex flex-col gap-4 mx-auto border border-gray-400 rounded-2xl", background)} >
+    <article className={cn("p-4 w-64 flex flex-col gap-4 mx-auto border border-gray-400 rounded-2xl relative", background)} >
+      <button className="absolute top-0 right-0 p-4 cursor-pointer hover:scale-110 transition" onClick={() => onFav(product.id)}>{isFav ? "❤" : "🤍"}</button>
       <h2 className="font-bold text-2xl">{product.title}</h2>
       <img
         src={product.image}

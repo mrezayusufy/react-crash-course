@@ -1,4 +1,5 @@
 import type { Route } from "./+types/home";
+import { useState } from "react";
 import { ProductCard, ProductList } from "~/components";
 
 export function meta({ }: Route.MetaArgs) {
@@ -9,8 +10,10 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export default function Home() {
+  const [favList, setFavList] = useState([]);
   const products = [
     {
+      id: 1,
       image: "images/iphone.png",
       title: "iPhone 15 Pro",
       spec: [
@@ -23,6 +26,7 @@ export default function Home() {
       bg: "bg-emerald-600"
     },
     {
+      id: 2,
       image: "images/airpods.png",
       title: "AirPods Pro 2",
       spec: [
@@ -35,6 +39,7 @@ export default function Home() {
       bg: "bg-blue-300"
     },
     {
+      id: 3,
       image: "images/apple-watch.png",
       title: "Apple Watch 9",
       spec: [
@@ -51,9 +56,16 @@ export default function Home() {
 
     alert(`You clicked on ${product.title} which cost $${product.price}`);
   }
+  const onFav = (id) => {
+    if (favList.includes(id)) {
+      setFavList(prev => prev.filter(i => i !== id))
+    } else {
+      setFavList(prev => [...prev, id])
+    }
+  }
   return <ProductList >
     {products.map((item) => (
-      <ProductCard key={item.title} product={item} onPurchase={onPurchase} background={item.bg} />
+      <ProductCard key={item.title} product={item} onPurchase={onPurchase} background={item.bg} isFav={favList.includes(item.id)} onFav={onFav} />
     ))}
   </ProductList>;
 }

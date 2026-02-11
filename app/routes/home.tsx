@@ -1,7 +1,7 @@
 import type { Route } from "./+types/home";
 import { useState } from "react";
 import { ProductCard, ProductList } from "~/components";
-
+import { products as _products } from "~/data/products";
 export function meta({ }: Route.MetaArgs) {
   return [
     { title: "New React Router App" },
@@ -10,48 +10,15 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export default function Home() {
+  const [products, setProducts] = useState(_products);
   const [favList, setFavList] = useState([]);
-  const products = [
-    {
-      id: 1,
-      image: "images/iphone.png",
-      title: "iPhone 15 Pro",
-      spec: [
-        "A17 Pro chip with 6-core GPU",
-        "3x or 5x Telephoto camera",
-        "Up to 29 hours video playback",
-      ],
-      stockCount: 10,
-      price: 999,
-      bg: "bg-emerald-600"
+  const [filters, setFilters] = useState({
+    price: {
+      min: 0,
+      max: 999
     },
-    {
-      id: 2,
-      image: "images/airpods.png",
-      title: "AirPods Pro 2",
-      spec: [
-        "Noise Cancellation",
-        "Dust, sweat, and water resistant",
-        "Up to 6 hours of listening",
-      ],
-      stockCount: 0,
-      price: 249,
-      bg: "bg-blue-300"
-    },
-    {
-      id: 3,
-      image: "images/apple-watch.png",
-      title: "Apple Watch 9",
-      spec: [
-        "45mm or 41mm case size",
-        "Always-On Retina display",
-        "Up to 18 hours normal use",
-      ],
-      stockCount: 20,
-      price: 399,
-      bg: "bg-violet-500"
-    },
-  ];
+    other: "other value"
+  })
   const onPurchase = (product) => {
 
     alert(`You clicked on ${product.title} which cost $${product.price}`);
@@ -63,8 +30,8 @@ export default function Home() {
       setFavList(prev => [...prev, id])
     }
   }
-  return <ProductList >
-    {products.map((item) => (
+  return <ProductList>
+    {products.filter(i => filters).map((item) => (
       <ProductCard key={item.title} product={item} onPurchase={onPurchase} background={item.bg} isFav={favList.includes(item.id)} onFav={onFav} />
     ))}
   </ProductList>;

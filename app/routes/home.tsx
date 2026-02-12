@@ -1,11 +1,15 @@
 import type { Route } from "./+types/home";
 import { useState } from "react";
 import { ProductCard, ProductList } from "~/components";
+import { ProductContext } from "~/context/index";
 import { products as _products } from "~/data/products";
+
+
+
 export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "React Crash Course Udemy" },
+    { name: "description", content: "Welcome to my React Project!" },
   ];
 }
 
@@ -15,13 +19,15 @@ export default function Home() {
   const [filters, setFilters] = useState({
     price: {
       min: 0,
-      max: 999
+      max: 500
     },
     other: "other value"
   })
-  const onPurchase = (product) => {
-
-    alert(`You clicked on ${product.title} which cost $${product.price}`);
+  const onPurchase = (id, stockCount) => {
+    console.log("purchased!!!")
+    setProducts((prev) =>
+      prev.map(product =>
+        product.id === id ? { ...product, stockCount } : product))
   }
   const onFav = (id) => {
     if (favList.includes(id)) {
@@ -30,9 +36,27 @@ export default function Home() {
       setFavList(prev => [...prev, id])
     }
   }
-  return <ProductList>
-    {products.filter(i => filters).map((item) => (
-      <ProductCard key={item.title} product={item} onPurchase={onPurchase} background={item.bg} isFav={favList.includes(item.id)} onFav={onFav} />
-    ))}
-  </ProductList>;
+  return <section className="flex flex-col gap-4 p-8">
+    <div>Products List</div>
+    <ProductList>
+      {products.map((item) => (
+        <ProductCard
+          key={item.title}
+          product={item}
+          onPurchase={onPurchase}
+          background={item.bg}
+          isFav={favList.includes(item.id)}
+          onFav={onFav} />
+      ))}
+    </ProductList>
+    <div>Products List by price</div>
+    <ProductList>
+      {products
+        .filter(({ price }) => price >= filters.price.min && price <= filters.price.max)
+        .map((item) => (
+          <ProductCard
+            key={item.title} product={item} onPurchase={onPurchase} background={item.bg} isFav={favList.includes(item.id)} onFav={onFav} />
+        ))}
+    </ProductList>
+  </section>;
 }

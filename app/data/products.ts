@@ -9,7 +9,7 @@ export const products = [
       "Up to 29 hours video playback",
     ],
     stockCount: 10,
-    price: 999,
+    price: 1200,
     bg: "bg-emerald-600"
   },
   {
